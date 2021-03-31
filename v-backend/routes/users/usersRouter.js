@@ -10,6 +10,8 @@ var {
     checkLoginIsEmpty,
 } = require("../lib/validator");
 
+var { checkIsUserHaveValidJwtToken } = require("../lib/authChecker");
+
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
