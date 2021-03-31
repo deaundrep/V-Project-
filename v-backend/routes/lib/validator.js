@@ -102,7 +102,6 @@ const checkLoginIsEmpty = (req, res, next) => {
 
 module.exports = {
     checkIfEmptyMiddleware,
-
     checkForSymbolMiddleware,
     checkLoginIsEmpty,
 };

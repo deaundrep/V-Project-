@@ -9,7 +9,7 @@ var cors = require("cors");
 require("dotenv").config();
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users/userRouter');
+var usersRouter = require('./routes/users/usersRouter');
 
 mongoose
   .connect(process.env.MONGO_DB, {

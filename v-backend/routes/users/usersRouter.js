@@ -1,11 +1,13 @@
 var express = require("express");
 var router = express.Router();
 var {
-    signUp
+    signUp,
+    login,
 } = require("./controller/userController");
 var {
     checkIfEmptyMiddleware,
     checkForSymbolMiddleware,
+    checkLoginIsEmpty,
 } = require("../lib/validator");
 
 
@@ -19,6 +21,11 @@ router.post(
     checkIfEmptyMiddleware,
     checkForSymbolMiddleware,
     signUp
+);
+
+router.post("/login", 
+checkLoginIsEmpty, 
+login
 );
 
 module.exports = router;
