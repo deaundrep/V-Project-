@@ -20,5 +20,5 @@ const checkIfUserHasValidJwtToken = async (req, res, next) => {
 };
 
 module.exports = {
-    checkIfUserHasValidJwtToken
+    checkIfUserHasValidJwtToken,
 };

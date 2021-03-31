@@ -3,6 +3,7 @@ var router = express.Router();
 var {
     signUp,
     login,
+    updateUserPassword,
 } = require("./controller/userController");
 var {
     checkIfEmptyMiddleware,
@@ -10,7 +11,7 @@ var {
     checkLoginIsEmpty,
 } = require("../lib/validator");
 
-var { checkIsUserHaveValidJwtToken } = require("../lib/authChecker");
+var { checkIfUserHasValidJwtToken } = require("../lib/authChecker");
 
 
 /* GET users listing. */
@@ -25,9 +26,16 @@ router.post(
     signUp
 );
 
-router.post("/login", 
-checkLoginIsEmpty, 
-login
+router.post("/login",
+    checkLoginIsEmpty,
+    login
 );
+
+router.put(
+    "/update-user-password",
+    checkIfUserHasValidJwtToken,
+    updateUserPassword
+);
+
 
 module.exports = router;
