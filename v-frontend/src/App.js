@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import MainRouter from "./MainRouter";
 import { ToastContainer } from "react-toastify";
 import jwtDecode from "jwt-decode";
 import "react-toastify/dist/ReactToastify.css";
-
-
 export class App extends Component {
   state = {
     user: null,
@@ -13,33 +11,36 @@ export class App extends Component {
   componentDidMount() {
     let getJwtToken = localStorage.getItem("jwtToken");
 
+
     if (getJwtToken) {
       const currentTime = Date.now() / 1000;
 
       let decodedJwtToken = jwtDecode(getJwtToken);
 
       if (decodedJwtToken.exp < currentTime) {
+
         this.handleUserLogout();
       } else {
         this.handleUserLogin(decodedJwtToken);
       }
+
     }
+  }
 
-      handleUserLogin = (user) => {
-        this.setState({
-          user: {
-            email: user.email,
-          },
-        });
-      };
+  handleUserLogin = (user) => {
+    this.setState({
+      user: {
+        email: user.email,
+      },
+    });
+  };
 
-      handleUserLogout = () => {
-        localStorage.removeItem("jwtToken");
-        this.setState({
-          user: null,
-        });
-      };
-    };
+  handleUserLogout = () => {
+    localStorage.removeItem("jwtToken");
+    this.setState({
+      user: null,
+    });
+  };
 
   render() {
     return (
@@ -55,4 +56,5 @@ export class App extends Component {
   }
 }
 
-export default App
+
+export default App;

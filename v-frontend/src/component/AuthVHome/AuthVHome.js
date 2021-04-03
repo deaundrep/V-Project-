@@ -147,7 +147,7 @@ export class AuthVHome extends Component {
             <div style={{ marginTop: 50, textAlign: "center" }}>
                 <input
                     style={{ width: 450 }}
-                    name="movieInput"
+                    name="VInput"
                     value={this.state.vInput}
                     onChange={this.handleVInput}
                     onKeyPress={this.handleSearchOnEnter}
