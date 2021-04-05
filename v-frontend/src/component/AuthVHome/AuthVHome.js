@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
+const recipeID = "7902536d";
+const recipeKey = "35a44083dfc972140e0e16dd7a6d8388";
 
 export class AuthVHome extends Component {
     constructor(props) {
@@ -13,29 +15,23 @@ export class AuthVHome extends Component {
             isLoading: false,
             isError: false,
             errorMessage: "",
+            onlyVegan: false
         };
     }
+
     async componentDidMount() {
-        let randomTitle = ["vegan", "veggie", "vegetarian ", "vegetable"];
+        let randomTitle = ["vegan", "veggie"];
         let randomSelectedTitle = Math.floor(Math.random() * randomTitle.length);
         this.setState({
             isLoading: true,
         });
+
         try {
-            let vData = await axios.get(
-                `https://www.edamam.com//?apikey=b90a2f8b3a1bcb7ba21d19d4c285f715	
-&s=${randomTitle[randomSelectedTitle]}`,
-                {
-                    cancelToken: source.token,
-                }
-            );
-            this.setState({
-                vArray: vData.data.Search,
-                isLoading: false,
-                vInput: "",
-            });
+            let vData = `https://api.edamam.com/search?q=${this.state.vInput}&app_id=${recipeID}&app_key=${recipeKey}&health=vegetarian`;
+            let payload = await axios.get(vData);
+            console.log(payload);
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
     componentWillUnmount() {
@@ -63,10 +59,9 @@ export class AuthVHome extends Component {
             isLoading: true,
         });
         try {
-            let vData = await axios.get(
-                `https://www.edamam.com//?apikey=b90a2f8b3a1bcb7ba21d19d4c285f715	
-&s=${this.state.vInput}`
-            );
+            let vData = `https://api.edamam.com/search?q=${this.state.vInput}&app_id=${recipeID}&app_key=${recipeKey}`;
+            let payload = await axios.get(vData);
+            console.log(payload);
             if (vData.data?.Response === "False") {
                 this.setState({
                     isLoading: false,
@@ -97,8 +92,7 @@ export class AuthVHome extends Component {
             });
             try {
                 let vData = await axios.get(
-                    `https://www.edamam.com//?apikey=b90a2f8b3a1bcb7ba21d19d4c285f715	
-&s=${this.state.vInput}`
+                    `https://api.edamam.com/search?q=&app_id=${recipeID}&app_key=${recipeKey}${this.state.vInput}`
                 );
                 if (vData.data?.Response === "False") {
                     this.setState({
@@ -147,7 +141,7 @@ export class AuthVHome extends Component {
             <div style={{ marginTop: 50, textAlign: "center" }}>
                 <input
                     style={{ width: 450 }}
-                    name="VInput"
+                    name="vInput"
                     value={this.state.vInput}
                     onChange={this.handleVInput}
                     onKeyPress={this.handleSearchOnEnter}
@@ -165,7 +159,7 @@ export class AuthVHome extends Component {
                     )}
                 </div>
                 {this.state.isLoading ? (
-                    <div>...Loading</div>
+                    <div>knn</div>
                 ) : (
                         <div className="row">{this.showVArrayList()}</div>
                     )}

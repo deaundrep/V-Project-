@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
 import { checkIsUserLoggedIn } from "../lib/helper";
+import "./Login.css"
+
 
 export class Login extends Component {
     state = {
@@ -56,13 +58,14 @@ export class Login extends Component {
     render() {
         const { email, password } = this.state;
         return (
-            <div className="form-body">
-                <main className="form-signin">
+            <div className=" text-center">
+                <main className=" form-signin">
                     <form onSubmit={this.handleLoginSubmit}>
+                    <img class="mb-4" src="https://manfonhealth.files.wordpress.com/2013/01/nutrition.jpg" alt="300" width="300" height="300"></img>
                         <h1 className="h3 mb-3 fw-normal">Please login</h1>
 
-                <label htmlFor="inputEmail" className="visually-hidden">
-                Email address
+                <label htmlFor="inputEmail" className=" form-floating"  >
+                Email address:
                 </label>
         <input
             type="email"
@@ -77,11 +80,10 @@ export class Login extends Component {
 
             />
         
-        <label htmlFor="inputPassword" className="visually-hidden">
-            Password
+        <label htmlFor="inputPassword" className="form-floating">
+            Password:
             </label>
                         <input
-                            //type="password"
                             type="text"
                             id="inputPassword"
                             className="form-control"
@@ -91,11 +93,13 @@ export class Login extends Component {
                             value={password}
                             onChange={this.handleLogin}
                         />
-                        <button className="w-100 btn btn-lg btn-primary" type="submit">
+                        <button className="w-100 btn btn-lg btn-success" type="submit">
                             Login
             </button>
+
                     </form>
                 </main>
+                
             </div>
         );
     }

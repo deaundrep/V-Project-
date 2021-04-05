@@ -90,7 +90,7 @@ export class SignUp extends Component {
         let { firstName, lastName, email, password, isError } = this.state;
 
         if (isError) {
-            toast.error("&#128205; Please fix your password!", {
+            toast.error(" Please fix your password!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -118,7 +118,7 @@ export class SignUp extends Component {
                 confirmPassword: "",
             });
 
-            toast.success("successful &#128267; Please go login", {
+            toast.success("successful Please go login", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -229,16 +229,18 @@ export class SignUp extends Component {
                             onChange={this.handleOnPasswordChange}
                         />
                         <button
-                            className="w-100 btn btn-lg btn-primary"
+                            className="w-100 btn btn-lg btn-success"
                             type="submit"
                             disabled={isError ? true : false}
                         >
                             Sign up
             </button>
                     </form>
+                    
                 </main>
-        ;
+        
             </div>
+            
         );
     }
 }

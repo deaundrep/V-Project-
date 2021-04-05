@@ -187,7 +187,7 @@ export class Profile extends Component {
                             onChange={this.handleOnPasswordChange}
                         />
                         <button
-                            className="w-100 btn btn-lg btn-primary"
+                            className="w-100 btn btn-lg btn-success"
                             type="submit"
 
                             disabled={this.state.disabledSubmitButton}
