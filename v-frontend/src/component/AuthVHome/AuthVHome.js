@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import VDetail from "./VDetail";
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
 const recipeID = "7902536d";
 const recipeKey = "35a44083dfc972140e0e16dd7a6d8388";
-
 export class AuthVHome extends Component {
     constructor(props) {
         super(props);
@@ -15,17 +15,14 @@ export class AuthVHome extends Component {
             isLoading: false,
             isError: false,
             errorMessage: "",
-
         };
     }
-
     async componentDidMount() {
         // let randomTitle = ["vegan", "veggie"];
         // let randomSelectedTitle = Math.floor(Math.random() * randomTitle.length);
         this.setState({
             isLoading: true,
         });
-
         try {
             let vData = `https://api.edamam.com/search?q=${this.state.vInput}&app_id=${recipeID}&app_key=${recipeKey}`;
             let payload = await axios.get(vData);
@@ -66,18 +63,8 @@ export class AuthVHome extends Component {
         try {
             let vData = `https://api.edamam.com/search?q=${this.state.vInput}&app_id=${recipeID}&app_key=${recipeKey}`;
             let payload = await axios.get(vData);
-            console.log(payload);
-            if (vData.data?.Response === "False") {
-                this.setState({
-                    isLoading: false,
-                    isError: true,
-                    errorMessage:
-                        "Sorry, No such food exists. Please search another one",
-                });
-                return;
-            }
             this.setState({
-                vArray: vData.data.Search,
+                vArray: payload.data.hits,
                 isLoading: false,
                 vInput: "",
             });
@@ -96,20 +83,12 @@ export class AuthVHome extends Component {
                 isLoading: true,
             });
             try {
-                let vData = await axios.get(
+                let payload = await axios.get(
                     `https://api.edamam.com/search?q=&app_id=${recipeID}&app_key=${recipeKey}${this.state.vInput}`
-                );
-                if (vData.data?.Response === "False") {
-                    this.setState({
-                        isLoading: false,
-                        isError: true,
-                        errorMessage:
-                            "Sorry, No such food exists. Please search another one",
-                    });
-                    return;
-                }
+                    );
+                    console.log(payload)
                 this.setState({
-                    vArray: vData.data.Search,
+                    vArray: payload.data.hits,
                     isLoading: false,
                     vInput: "",
                 });
@@ -117,24 +96,21 @@ export class AuthVHome extends Component {
         }
     };
     showVArrayList = () => {
-        return this.state.vArray.map((item) => {
+        return this.state.vArray.map((recipe) => {
+            console.log(recipe)
             return (
-                <div className="col-sm-4" key={item.foodID}>
+                <div className="col-sm-4" key={recipe.recipe.label}>
                     <div className="card">
                         <div>
-                            <img
-                                className="card-img-top"
-                                src={item.Poster}
-                                alt={item.Title}
-                                style={{ width: 250, height: 250 }}
-                            />
+                            <img src={recipe.recipe.image} />
                         </div>
                         <Link
                             to={{
-                                pathname: `/v-detail/${item.Title}`,
+                                pathname: `/v-detail/${recipe.recipe.label}`,
+                                recipeData: recipe.recipe
                             }}
                         >
-                            <h5 className="card-title">{item.Title}</h5>
+                            <h5 className="card-name">{recipe.recipe.label}</h5>
                         </Link>
                     </div>
                 </div>
@@ -164,7 +140,7 @@ export class AuthVHome extends Component {
                     )}
                 </div>
                 {this.state.isLoading ? (
-                    <div></div>
+                    <div>...loading</div>
                 ) : (
                         <div className="row">{this.showVArrayList()}</div>
                     )}
@@ -173,4 +149,3 @@ export class AuthVHome extends Component {
     }
 }
 export default AuthVHome;
-

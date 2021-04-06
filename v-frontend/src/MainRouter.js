@@ -10,6 +10,7 @@ import Navbar from "./component/Navbar/Navbar";
 import PrivateRoute from "./component/PrivateRoute/PrivateRoute";
 import AuthVHome from "./component/AuthVHome/AuthVHome"
 import NotFound from "./component/lib/NotFound"
+import VDetail from "./component/AuthVHome/VDetail"
 
 
 
@@ -20,6 +21,7 @@ const MainRouter = (props) => {
             <Navbar user={props.user} handleUserLogout={props.handleUserLogout} />
             <Switch>
                 <PrivateRoute exact path="/v-home" component={AuthVHome} />
+                <PrivateRoute exact path="/v-detail/:recipe" component={VDetail} />
 
                 <PrivateRoute
                     exact
