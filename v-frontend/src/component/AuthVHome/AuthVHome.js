@@ -15,21 +15,26 @@ export class AuthVHome extends Component {
             isLoading: false,
             isError: false,
             errorMessage: "",
-            onlyVegan: false
+
         };
     }
 
     async componentDidMount() {
-        let randomTitle = ["vegan", "veggie"];
-        let randomSelectedTitle = Math.floor(Math.random() * randomTitle.length);
+        // let randomTitle = ["vegan", "veggie"];
+        // let randomSelectedTitle = Math.floor(Math.random() * randomTitle.length);
         this.setState({
             isLoading: true,
         });
 
         try {
-            let vData = `https://api.edamam.com/search?q=${this.state.vInput}&app_id=${recipeID}&app_key=${recipeKey}&health=vegetarian`;
+            let vData = `https://api.edamam.com/search?q=${this.state.vInput}&app_id=${recipeID}&app_key=${recipeKey}`;
             let payload = await axios.get(vData);
-            console.log(payload);
+            //console.log(payload);
+            this.setState({
+                vArray: payload.data.hits,
+                isLoading: false,
+                vInput: "",
+            })
         } catch (e) {
             console.error(e);
         }
@@ -114,7 +119,7 @@ export class AuthVHome extends Component {
     showVArrayList = () => {
         return this.state.vArray.map((item) => {
             return (
-                <div className="col-sm-4" key={item.imdbID}>
+                <div className="col-sm-4" key={item.foodID}>
                     <div className="card">
                         <div>
                             <img
@@ -159,7 +164,7 @@ export class AuthVHome extends Component {
                     )}
                 </div>
                 {this.state.isLoading ? (
-                    <div>knn</div>
+                    <div></div>
                 ) : (
                         <div className="row">{this.showVArrayList()}</div>
                     )}
