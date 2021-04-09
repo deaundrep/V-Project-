@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import VDetail from "./VDetail";
+import  "./VDetail.css";
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
 const recipeID = "7902536d";
@@ -99,7 +99,7 @@ export class AuthVHome extends Component {
         return this.state.vArray.map((recipe) => {
             console.log(recipe)
             return (
-                <div className="col-sm-4" key={recipe.recipe.label}>
+                <div className="col-sm-6" key={recipe.recipe.label}>
                     <div className="card">
                         <div>
                             <img src={recipe.recipe.image} />
@@ -119,7 +119,12 @@ export class AuthVHome extends Component {
     };
     render() {
         return (
-            <div style={{ marginTop: 50, textAlign: "center" }}>
+            
+            <div 
+            style={{ marginTop: 50, textAlign: "center" }}
+            
+            >
+                <h2>Go Green !!! 🌱 </h2>
                 <input
                     style={{ width: 450 }}
                     name="vInput"
@@ -127,13 +132,20 @@ export class AuthVHome extends Component {
                     onChange={this.handleVInput}
                     onKeyPress={this.handleSearchOnEnter}
                 />
+               
                 <br />
+                
                 <button
                     onClick={this.handleSearchVClick}
                     style={{ margin: "25px 25px" }}
+                    className="search"
+                   
                 >
                     Search
         </button>
+
+        <div className="myImage"> </div>
+        
                 <div>
                     {this.state.isError && (
                         <span style={{ color: "red" }}>{this.state.errorMessage}</span>
@@ -144,7 +156,9 @@ export class AuthVHome extends Component {
                 ) : (
                         <div className="row">{this.showVArrayList()}</div>
                     )}
+                    
             </div>
+        
         );
     }
 }

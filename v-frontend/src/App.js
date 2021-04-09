@@ -51,6 +51,7 @@ export class App extends Component {
           handleUserLogin={this.handleUserLogin}
           handleUserLogout={this.handleUserLogout}
         />
+         <div className={'bg'}></div>
       </>
     );
   }

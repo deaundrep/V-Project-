@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 
+
 import "./Navbar.css";
 
 function Navbar(props) {
@@ -9,6 +10,7 @@ function Navbar(props) {
             <p className="h5 my-0 me-md-auto fw-normal">
                 <Link to="/">
                     <i className="fas fa-film"></i>
+                    
                 </Link>
             </p>
             <nav className="my-2 my-md-0 me-md-0">
@@ -24,6 +26,7 @@ function Navbar(props) {
             </nav>
             {props.user ? (
                 <>
+                
 
                     <NavLink
                         className="btn btn-outline-success"
@@ -56,9 +59,12 @@ function Navbar(props) {
                         >
                             Login
                 </NavLink>
+                
                     </>
+                    
                 )}
         </header>
+        
     );
 }
 
